@@ -1,0 +1,29 @@
+# Tasks: King of Kings (Text-based)
+
+- [/] Project Initialization & Planning <!-- id: 0 -->
+    - [x] Define Tech Stack (Vue + C#) <!-- id: 1 -->
+    - [ ] Create Database Schema Design <!-- id: 2 -->
+    - [ ] Define Game Architecture <!-- id: 3 -->
+- [x] Phase 1: Foundation <!-- id: 4 -->
+    - [x] Setup C# Web API Project (Backend) <!-- id: 5 -->
+    - [x] Setup Vue 3 + Vite Project (Frontend) <!-- id: 20 -->
+    - [x] Configure SignalR (Real-time comms) <!-- id: 21 -->
+    - [x] Database Setup (SQLite + EF Core) <!-- id: 6 -->
+- [x] Phase 2: Core Mechanics <!-- id: 8 -->
+    - [x] Auth System (Basic Login/Register) <!-- id: 22 -->
+    - [x] Character Creation API (Warrior, Mage, Priest) <!-- id: 9 -->
+    - [x] Game Engine Loop (Basic Command Processing) <!-- id: 7 -->
+    - [x] Map System & Movement (Zone 1: Newbie Village) <!-- id: 10 -->
+- [ ] Phase 3: Gameplay Implementation <!-- id: 12 -->
+    - [ ] Combat Engine (Auto-attack + Skill Queue) <!-- id: 13 -->
+    - [ ] Implement Skills (Bash, Fireball, Heal) <!-- id: 14 -->
+    - [ ] Monster AI & Loot Tables <!-- id: 23 -->
+    - [ ] Inventory & Equipment System <!-- id: 15 -->
+    - [ ] Leveling & Stat Growth <!-- id: 24 -->
+- [ ] Phase 4: Content Expansion <!-- id: 16 -->
+    - [ ] Zone 2: Whispering Forest <!-- id: 25 -->
+    - [ ] Zone 3: Abandoned Mine <!-- id: 26 -->
+    - [ ] Boss Mechanics <!-- id: 27 -->
+- [ ] Phase 5: UI Polish <!-- id: 28 -->
+    - [ ] Retro Theme Styling (Tailwind) <!-- id: 29 -->
+    - [ ] Combat Effects (Floating Text) <!-- id: 30 -->

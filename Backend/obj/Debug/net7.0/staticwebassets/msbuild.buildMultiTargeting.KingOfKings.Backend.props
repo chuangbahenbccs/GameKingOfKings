@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\KingOfKings.Backend.props" />
+</Project>
