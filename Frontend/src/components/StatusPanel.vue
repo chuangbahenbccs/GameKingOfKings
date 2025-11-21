@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { usePlayerStore, ClassType } from '../stores/player'
+import CharacterAvatar from './CharacterAvatar.vue'
 
 const playerStore = usePlayerStore()
 
@@ -30,12 +31,15 @@ const expToNextLevel = computed(() => {
 <template>
   <div class="bg-rpg-panel backdrop-blur-md pixel-border text-gray-200 h-full overflow-y-auto">
     <div v-if="playerStore.player" class="p-4 space-y-4">
-      <!-- Character Header -->
+      <!-- Character Header with HD2D Avatar -->
       <div class="border-b-2 border-rpg-gold/50 pb-3 border-dashed">
         <div class="flex items-center gap-3 mb-2">
-          <div class="w-16 h-16 bg-black border-2 border-rpg-gold overflow-hidden shadow-[2px_2px_0_0_rgba(0,0,0,0.5)]">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=King" alt="Portrait" class="w-full h-full bg-gray-800 grayscale contrast-125" />
-          </div>
+          <!-- HD2D Character Avatar -->
+          <CharacterAvatar
+            :class-type="playerStore.player.class"
+            size="medium"
+            :show-effect="true"
+          />
           <div class="flex-1">
             <h2 class="text-xl font-fantasy text-rpg-gold tracking-wide drop-shadow-[1px_1px_0_#000]">
               {{ playerStore.player.name }}
