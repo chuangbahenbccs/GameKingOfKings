@@ -1,0 +1,18 @@
+
+msbuild.log:4692:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(18,29): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4693:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(20,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4694:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(21,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4695:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(22,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4696:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(23,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4697:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(33,36): error CS1503: 引數 1: 無法從 'Room[]' 轉換成 'KingOfKings.Backend.Models.WorldRoom' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4698:   1:7>C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(60,21): error CS1061: 'AppDbContext' 未包含 'Skills' 的定義，也找不到可接受類型 'AppDbContext' 第一個引數的可存取擴充方法 'Skills' (是否遺漏 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4699:   1:7>C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(82,18): error CS0029: 無法將類型 'System.Guid' 隱含轉換成 'int' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4750:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(18,29): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4751:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(20,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4752:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(21,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4753:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(22,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4754:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(23,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4755:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(33,36): error CS1503: 引數 1: 無法從 'Room[]' 轉換成 'KingOfKings.Backend.Models.WorldRoom' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4756:         C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(60,21): error CS1061: 'AppDbContext' 未包含 'Skills' 的定義，也找不到可接受類型 'AppDbContext' 第一個引數的可存取擴充方法 'Skills' (是否遺漏 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+msbuild.log:4757:         C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(82,18): error CS0029: 無法將類型 'System.Guid' 隱含轉換成 'int' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+

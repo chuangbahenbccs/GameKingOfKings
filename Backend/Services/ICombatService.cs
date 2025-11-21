@@ -25,5 +25,14 @@ namespace KingOfKings.Backend.Services
         /// <param name="monster">The monster (怪物).</param>
         /// <returns>A combat log message (戰鬥紀錄訊息).</returns>
         string ProcessCombatRound(PlayerCharacter player, Monster monster);
+
+        /// <summary>
+        /// Attempts for a player to flee from a monster.
+        /// 嘗試玩家從怪物處逃跑。
+        /// </summary>
+        /// <param name="player">The player attempting to flee (嘗試逃跑的玩家).</param>
+        /// <param name="monster">The monster being fled from (被逃跑的怪物).</param>
+        /// <returns>True if the flee attempt was successful, false otherwise (如果逃跑成功則為 true，否則為 false).</returns>
+        bool TryFlee(PlayerCharacter player, Monster monster);
     }
 }

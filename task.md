@@ -14,8 +14,11 @@
     - [x] Character Creation API (Warrior, Mage, Priest) <!-- id: 9 -->
     - [x] Game Engine Loop (Basic Command Processing) <!-- id: 7 -->
     - [x] Map System & Movement (Zone 1: Newbie Village) <!-- id: 10 -->
-- [ ] Phase 3: Gameplay Implementation <!-- id: 12 -->
-    - [ ] Combat Engine (Auto-attack + Skill Queue) <!-- id: 13 -->
+- [/] Phase 3: Gameplay Implementation <!-- id: 12 -->
+    - [x] Combat Engine (Auto-attack + Skill Queue) <!-- id: 13 -->
+        - [x] Backend: CombatSession & Manager <!-- id: 31 -->
+        - [x] Backend: Integrate with GameHub <!-- id: 32 -->
+        - [x] Frontend: Real-time CombatView <!-- id: 33 -->
     - [ ] Implement Skills (Bash, Fireball, Heal) <!-- id: 14 -->
     - [ ] Monster AI & Loot Tables <!-- id: 23 -->
     - [ ] Inventory & Equipment System <!-- id: 15 -->

@@ -3,6 +3,7 @@ using System;
 using KingOfKings.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KingOfKings.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251121073508_AddSkillSeedData")]
+    partial class AddSkillSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -37,96 +40,6 @@ namespace KingOfKings.Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("KingOfKings.Backend.Models.Monster", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Attack")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CurrentHp")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Defense")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ExpReward")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MaxHp")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Monsters");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Attack = 5,
-                            CurrentHp = 50,
-                            Defense = 2,
-                            ExpReward = 10,
-                            LocationId = 2,
-                            MaxHp = 50,
-                            Name = "木頭人偶"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Attack = 3,
-                            CurrentHp = 30,
-                            Defense = 1,
-                            ExpReward = 5,
-                            LocationId = 2,
-                            MaxHp = 30,
-                            Name = "訓練假人"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Attack = 12,
-                            CurrentHp = 80,
-                            Defense = 5,
-                            ExpReward = 25,
-                            LocationId = 1,
-                            MaxHp = 80,
-                            Name = "野狼"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Attack = 12,
-                            CurrentHp = 80,
-                            Defense = 5,
-                            ExpReward = 25,
-                            LocationId = 1,
-                            MaxHp = 80,
-                            Name = "wolf"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Attack = 8,
-                            CurrentHp = 40,
-                            Defense = 3,
-                            ExpReward = 15,
-                            LocationId = 3,
-                            MaxHp = 40,
-                            Name = "大老鼠"
-                        });
                 });
 
             modelBuilder.Entity("KingOfKings.Backend.Models.PlayerCharacter", b =>
@@ -332,23 +245,23 @@ namespace KingOfKings.Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "你站在一個和平村莊的中心。附近有一座噴泉正輕柔地冒著水泡。北邊通往訓練場，東邊是村長的家。",
+                            Description = "You are standing in the center of a peaceful village. A fountain bubbles softly nearby.",
                             ExitsJson = "{\"n\":2,\"e\":3}",
-                            Name = "村莊廣場"
+                            Name = "Village Square"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "木頭人偶排成一列列站在這裡。空氣中充滿了敲擊木頭的聲音。南邊是村莊廣場。",
+                            Description = "Wooden dummies stand in rows here. The sound of striking wood fills the air.",
                             ExitsJson = "{\"s\":1}",
-                            Name = "訓練場"
+                            Name = "Training Grounds"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "一間舒適的小屋，空氣中瀰漫著草藥的香味。西邊可以回到村莊廣場。",
+                            Description = "A cozy hut with the smell of herbs.",
                             ExitsJson = "{\"w\":1}",
-                            Name = "村長的家"
+                            Name = "Village Elder's House"
                         });
                 });
 

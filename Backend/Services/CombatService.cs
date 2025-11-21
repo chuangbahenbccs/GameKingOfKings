@@ -56,5 +56,20 @@ namespace KingOfKings.Backend.Services
 
             return log;
         }
+
+        public bool TryFlee(PlayerCharacter player, Monster monster)
+        {
+            // Success chance = (Player DEX * 2) / (Player DEX + Monster DEX + 1)
+            // Base 50% if equal stats
+            // Cap at 90%
+            
+            // Mock monster stats for now if missing
+            int monsterDex = 10; // Default
+            
+            double chance = (double)(player.Stats.Dex * 2) / (player.Stats.Dex + monsterDex + 1);
+            if (chance > 0.9) chance = 0.9;
+            
+            return _random.NextDouble() < chance;
+        }
     }
 }

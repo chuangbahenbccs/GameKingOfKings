@@ -20,7 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IGameEngine, GameEngine>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICombatService, CombatService>();
+builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddSingleton<CombatManager>();
 builder.Services.AddHostedService<GameLoopService>();
 
 // JWT Authentication
@@ -60,6 +62,22 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

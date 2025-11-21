@@ -1,0 +1,23 @@
+  正在判斷要還原的專案...
+  所有專案都在最新狀態，可進行還原。
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,17): error CS1003: 語法錯誤，必須是 ',' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,45): error CS1003: 語法錯誤，必須是 ',' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,46): error CS1513: 必須是 } [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,46): error CS1002: 必須是 ; [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(190,9): error CS1519: Invalid token 'return' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(190,25): error CS1519: Invalid token ';' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(191,5): error CS1519: Invalid token '}' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+
+建置失敗。
+
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,17): error CS1003: 語法錯誤，必須是 ',' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,45): error CS1003: 語法錯誤，必須是 ',' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,46): error CS1513: 必須是 } [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(162,46): error CS1002: 必須是 ; [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(190,9): error CS1519: Invalid token 'return' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(190,25): error CS1519: Invalid token ';' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(191,5): error CS1519: Invalid token '}' in a member declaration [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+    0 個警告
+    7 個錯誤
+
+經過時間 00:00:01.02

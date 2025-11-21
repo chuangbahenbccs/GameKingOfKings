@@ -1,3 +1,111 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-rpg-dark text-gray-200 font-sans overflow-hidden;
+    image-rendering: pixelated;
+    /* Force pixel rendering globally */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-fantasy text-rpg-gold;
+    text-shadow: 2px 2px 0px #000;
+    /* Retro text shadow */
+  }
+}
+
+@layer components {
+
+  /* Pixel Art Border (NES Style) */
+  .pixel-border {
+    box-shadow:
+      -2px 0 0 0 #000,
+      2px 0 0 0 #000,
+      0 -2px 0 0 #000,
+      0 2px 0 0 #000,
+      -2px -2px 0 0 #000,
+      2px -2px 0 0 #000,
+      -2px 2px 0 0 #000,
+      2px 2px 0 0 #000,
+      -4px 0 0 0 #daa520,
+      4px 0 0 0 #daa520,
+      0 -4px 0 0 #daa520,
+      0 4px 0 0 #daa520;
+    margin: 4px;
+    /* Space for the border */
+  }
+
+  .rpg-card {
+    @apply bg-rpg-panel/90 backdrop-blur-sm pixel-border rounded-none;
+    /* Removed rounded-lg for pixel look */
+  }
+
+  .rpg-btn {
+    @apply px-6 py-2 font-fantasy text-rpg-dark bg-rpg-gold hover:bg-yellow-400 transition-all duration-100 uppercase tracking-wider;
+    box-shadow: inset -2px -2px 0px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .rpg-btn:active {
+    box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.5);
+    transform: translateY(2px);
+  }
+
+  .rpg-input {
+    @apply bg-black/70 border-2 border-gray-600 text-rpg-blue font-pixel text-lg px-4 py-2 focus:border-rpg-blue focus:outline-none w-full;
+    box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Tilt-Shift Effect for Backgrounds */
+  .tilt-shift {
+    position: relative;
+  }
+
+  .tilt-shift::before,
+  .tilt-shift::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20%;
+    pointer-events: none;
+    z-index: 1;
+    backdrop-filter: blur(4px);
+    mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  .tilt-shift::before {
+    top: 0;
+  }
+
+  .tilt-shift::after {
+    bottom: 0;
+    transform: scaleY(-1);
+  }
+}
+
+/* Custom Scrollbar (Blocky) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+  border-left: 2px solid #334155;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #daa520;
+  border: 2px solid #020617;
+  box-shadow: inset -2px -2px 0px 0px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fbbf24;
+}

@@ -1,15 +1,20 @@
+using KingOfKings.Backend.Data;
+using KingOfKings.Backend.Models;
 using KingOfKings.Backend.Services;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace KingOfKings.Backend.Hubs;
 
 public class GameHub : Hub
 {
     private readonly IGameEngine _gameEngine;
+    private readonly IServiceProvider _serviceProvider;
 
-    public GameHub(IGameEngine gameEngine)
+    public GameHub(IGameEngine gameEngine, IServiceProvider serviceProvider)
     {
         _gameEngine = gameEngine;
+        _serviceProvider = serviceProvider;
     }
 
     public async Task SendMessage(string user, string message)
@@ -47,6 +52,9 @@ public class GameHub : Hub
 
         var result = await _gameEngine.ProcessCommandAsync(playerId, command);
         await Clients.Caller.SendAsync("ReceiveMessage", "Game", result);
+        
+        // Send updated player data
+        await SendPlayerData(playerId);
     }
 
     public async Task JoinGame(string username)
@@ -57,32 +65,109 @@ public class GameHub : Hub
             return;
         }
 
-        // Quick and dirty "Auth" for prototype: Find user/char or create
-        // In production, this would be in AuthService and return a Token
-        
-        // We need a scope because Hub might be long lived or we want to be safe with DbContext
-        // But Hub methods are invoked in a scope usually. 
-        // Let's inject IServiceProvider to be safe or just rely on GameEngine if we move this logic there.
-        // For now, let's just use a local scope here to access DB directly for "Login"
-        
-        // Note: We can't easily inject DbContext into Hub if we want to keep Hub lightweight, 
-        // but it's fine for this scale. 
-        // Better: Delegate to GameEngine or a new AuthService.
-        // Let's delegate to GameEngine for "Login" helper for now to keep Hub clean.
-        
         var playerId = await _gameEngine.LoginOrRegisterAsync(username);
         
         if (playerId == Guid.Empty)
         {
-             await Clients.Caller.SendAsync("ReceiveMessage", "System", "Failed to join game.");
-             return;
+            // User exists but no character - need character creation
+            await Clients.Caller.SendAsync("NeedCharacterCreation", username);
+            return;
         }
 
         Context.Items["PlayerId"] = playerId;
         await Clients.Caller.SendAsync("ReceiveMessage", "System", $"Welcome, {username}! You have joined the world.");
         
+        // Send player data
+        await SendPlayerData(playerId);
+        
         // Look at current room
         var lookResult = await _gameEngine.ProcessCommandAsync(playerId, "look");
         await Clients.Caller.SendAsync("ReceiveMessage", "Game", lookResult);
+    }
+
+    public async Task CreateCharacter(string username, int classType)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            await Clients.Caller.SendAsync("ReceiveMessage", "System", "Username cannot be empty.");
+            return;
+        }
+
+        if (classType < 0 || classType > 2)
+        {
+            await Clients.Caller.SendAsync("ReceiveMessage", "System", "Invalid class type.");
+            return;
+        }
+
+        var playerId = await _gameEngine.CreateCharacterAsync(username, (ClassType)classType);
+        
+        if (playerId == Guid.Empty)
+        {
+            await Clients.Caller.SendAsync("ReceiveMessage", "System", "Failed to create character.");
+            return;
+        }
+
+        Context.Items["PlayerId"] = playerId;
+        await Clients.Caller.SendAsync("ReceiveMessage", "System", $"Welcome, {username}! Your character has been created.");
+        await Clients.Caller.SendAsync("CharacterCreated");
+        
+        // Send player data
+        await SendPlayerData(playerId);
+        
+        // Look at current room
+        var lookResult = await _gameEngine.ProcessCommandAsync(playerId, "look");
+        await Clients.Caller.SendAsync("ReceiveMessage", "Game", lookResult);
+    }
+
+    private async Task SendPlayerData(Guid playerId)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        
+        var player = await db.PlayerCharacters
+            .Include(p => p.User)
+            .FirstOrDefaultAsync(p => p.Id == playerId);
+            
+        if (player == null) return;
+        
+        // Get skills for this class
+        var skills = await db.Skills
+            .Where(s => s.RequiredClass == player.Class)
+            .ToListAsync();
+        
+        var playerData = new
+        {
+            name = player.Name,
+            @class = (int)player.Class,
+            level = player.Level,
+            exp = player.Exp,
+            currentHp = player.CurrentHp,
+            maxHp = player.MaxHp,
+            currentMp = player.CurrentMp,
+            maxMp = player.MaxMp,
+            stats = new
+            {
+                str = player.Stats.Str,
+                dex = player.Stats.Dex,
+                @int = player.Stats.Int,
+                wis = player.Stats.Wis,
+                con = player.Stats.Con
+            },
+            currentRoomId = player.CurrentRoomId,
+            skills = skills.Select(s => new
+            {
+                id = s.Id.ToString(),
+                name = s.Name,
+                description = s.Description,
+                requiredClass = (int)s.RequiredClass,
+                manaCost = s.ManaCost,
+                cooldownSeconds = s.CooldownSeconds,
+                damageMultiplier = s.DamageMultiplier,
+                baseEffectValue = s.BaseEffectValue,
+                type = (int)s.Type
+            }).ToList()
+        };
+        
+        await Clients.Caller.SendAsync("PlayerData", playerData);
     }
 }

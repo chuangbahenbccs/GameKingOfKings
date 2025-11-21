@@ -20,24 +20,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-gray-900 text-gray-300 font-mono p-4 rounded-lg h-96 overflow-y-auto" id="terminal-output">
-    <div v-for="(msg, index) in messages" :key="index" class="mb-1">
-      {{ msg }}
+  <div class="bg-black/40 font-pixel text-lg p-4 rounded h-full overflow-y-auto border border-white/5 shadow-inner" id="terminal-output">
+    <div v-for="(msg, index) in messages" :key="index" class="mb-1 leading-relaxed">
+      <span class="text-gray-500 text-xs mr-2">[{{ (msg.split(']')[0] || '').replace('[', '') }}]</span>
+      <span :class="msg.includes('System') ? 'text-rpg-gold' : 'text-gray-300'">
+        {{ msg.split(']').slice(1).join(']') }}
+      </span>
     </div>
   </div>
 </template>
 
 <style scoped>
 /* Custom scrollbar for terminal feel */
-/* 自定義捲軸以營造終端機感覺 */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a1b26; 
+  background: rgba(0,0,0,0.3); 
 }
 ::-webkit-scrollbar-thumb {
-  background: #414868; 
-  border-radius: 4px;
+  background: #daa520; 
+  border-radius: 2px;
 }
 </style>

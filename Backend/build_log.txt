@@ -1,0 +1,31 @@
+  正在判斷要還原的專案...
+  所有專案都在最新狀態，可進行還原。
+C:\GitHub\GameKingOfKings\Backend\Services\CombatSession.cs(42,13): warning CS4014: 因為未等候此呼叫，所以在呼叫完成之前會繼續執行目前的方法。請考慮將 'await' 運算子套用至呼叫的結果。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(18,29): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(20,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(21,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(22,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(23,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(33,36): error CS1503: 引數 1: 無法從 'Room[]' 轉換成 'KingOfKings.Backend.Models.WorldRoom' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(60,21): error CS1061: 'AppDbContext' 未包含 'Skills' 的定義，也找不到可接受類型 'AppDbContext' 第一個引數的可存取擴充方法 'Skills' (是否遺漏 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(79,18): error CS0029: 無法將類型 'System.Guid' 隱含轉換成 'int' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(65,32): warning CS1998: 這個非同步方法缺少 'await' 運算子，因此將以同步方式執行。請考慮使用 'await' 運算子等候未封鎖的應用程式開發介面呼叫，或使用 'await Task.Run(...)' 在背景執行緒上執行 CPU-bound 工作。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\CombatSession.cs(117,48): warning CS8601: 可能有 Null 參考指派。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+
+建置失敗。
+
+C:\GitHub\GameKingOfKings\Backend\Services\CombatSession.cs(42,13): warning CS4014: 因為未等候此呼叫，所以在呼叫完成之前會繼續執行目前的方法。請考慮將 'await' 運算子套用至呼叫的結果。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(65,32): warning CS1998: 這個非同步方法缺少 'await' 運算子，因此將以同步方式執行。請考慮使用 'await' 運算子等候未封鎖的應用程式開發介面呼叫，或使用 'await Task.Run(...)' 在背景執行緒上執行 CPU-bound 工作。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\CombatSession.cs(117,48): warning CS8601: 可能有 Null 參考指派。 [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(18,29): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(20,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(21,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(22,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(23,21): error CS0246: 找不到類型或命名空間名稱 'Room' (是否遺漏了 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(33,36): error CS1503: 引數 1: 無法從 'Room[]' 轉換成 'KingOfKings.Backend.Models.WorldRoom' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Data\DbInitializer.cs(60,21): error CS1061: 'AppDbContext' 未包含 'Skills' 的定義，也找不到可接受類型 'AppDbContext' 第一個引數的可存取擴充方法 'Skills' (是否遺漏 using 指示詞或組件參考?) [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+C:\GitHub\GameKingOfKings\Backend\Services\GameEngine.cs(79,18): error CS0029: 無法將類型 'System.Guid' 隱含轉換成 'int' [C:\GitHub\GameKingOfKings\Backend\KingOfKings.Backend.csproj]
+    3 個警告
+    8 個錯誤
+
+經過時間 00:00:01.09
