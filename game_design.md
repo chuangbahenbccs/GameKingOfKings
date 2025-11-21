@@ -80,33 +80,6 @@
 ---
 
 ## 4. Itemization (裝備系統)
-
-### Slots
-- **Weapon**: Sword, Staff, Mace.
-- **Body**: Plate, Robe, Leather.
-- **Accessory**: Ring, Amulet.
-
-### Tiers (Rarity)
-- **Common (White)**: Basic shop items.
-- **Uncommon (Green)**: Small stat bonus.
-- **Rare (Blue)**: Significant stats + special effect.
-- **Epic (Purple)**: Boss drops, unique skills.
-
----
-
-## 5. UI/UX Design (介面設計)
-
-### Color Palette (Theme: Retro Dark Mode)
-- **Background**: `#1a1b26` (Deep Blue/Black)
-- **Text**: `#a9b1d6` (Soft White)
-- **Highlight**: `#7aa2f7` (Blue)
-- **Danger**: `#f7768e` (Red)
-- **Success**: `#9ece6a` (Green)
-
-### Layout
-1. **Main Output (Center)**:
-    - Scrolling text log.
-    - HTML formatting for colors (e.g., <span class="text-red-500">You take 50 damage!</span>).
 2. **Status Panel (Left/Top)**:
     - HP Bar (Red), MP Bar (Blue), EXP Bar (Yellow).
     - Current Location Name.

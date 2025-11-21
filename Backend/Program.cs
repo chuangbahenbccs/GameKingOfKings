@@ -1,4 +1,5 @@
 using KingOfKings.Backend.Data;
+using KingOfKings.Backend.Data.Repositories;
 using KingOfKings.Backend.Hubs;
 using KingOfKings.Backend.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Services
 builder.Services.AddScoped<IGameEngine, GameEngine>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ICombatService, CombatService>();
+builder.Services.AddHostedService<GameLoopService>();
 
 // SignalR
 builder.Services.AddSignalR();
@@ -26,7 +30,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
+            policy.WithOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
