@@ -111,9 +111,9 @@ public class GameEngine : IGameEngine
     {
         if (string.IsNullOrWhiteSpace(targetName)) return "要攻擊什麼？";
 
-        // 清理目標名稱，移除可能的HTML標記和多餘的符號
-        targetName = System.Text.RegularExpressions.Regex.Replace(targetName, @"<[^>]*>", "").Trim();
-        targetName = targetName.Replace("</div>", "").Replace("'", "").Trim();
+        // 清理目標名稱，移除所有HTML標記和多餘的符號
+        targetName = System.Text.RegularExpressions.Regex.Replace(targetName, @"</?[^>]*>", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        targetName = targetName.Replace("'", "").Replace("\"", "").Replace("'", "").Replace(""", "").Replace(""", "").Trim();
 
         // Check if already in combat
         var session = _combatManager.GetSession(player.Id);

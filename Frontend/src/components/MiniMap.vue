@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { usePlayerStore } from '../stores/player'
+import { ref, onMounted } from 'vue'
+// import { usePlayerStore } from '../stores/player'
 import { gameHub } from '../services/gameHub'
 
-const playerStore = usePlayerStore()
+// const playerStore = usePlayerStore()
 const currentRoom = ref('村莊廣場')
 const availableExits = ref<{ [key: string]: string }>({})
 
-// 房間配置
-const roomConfigs: { [key: string]: { x: number, y: number, name: string } } = {
-  '1': { x: 100, y: 100, name: '村莊廣場' },
-  '2': { x: 100, y: 50, name: '訓練場' },
-  '3': { x: 150, y: 100, name: '村長家' },
-}
+// 房間配置 (保留以備未來使用)
+// const roomConfigs: { [key: string]: { x: number, y: number, name: string } } = {
+//   '1': { x: 100, y: 100, name: '村莊廣場' },
+//   '2': { x: 100, y: 50, name: '訓練場' },
+//   '3': { x: 150, y: 100, name: '村長家' },
+// }
 
 // 監聽遊戲消息更新地圖
 onMounted(() => {
@@ -40,57 +40,71 @@ onMounted(() => {
   })
 })
 
-// 計算當前房間ID
-const currentRoomId = computed(() => {
-  const roomId = playerStore.player?.currentRoomId || 1
-  return roomId.toString()
-})
-
-// 獲取當前房間配置
-const currentRoomConfig = computed(() => {
-  return roomConfigs[currentRoomId.value] || roomConfigs['1']
-})
+// 計算當前房間ID (保留以備未來使用)
+// const currentRoomId = computed(() => {
+//   const roomId = playerStore.player?.currentRoomId || 1
+//   return roomId.toString()
+// })
 </script>
 
 <template>
 
-  <div class="h-full relative overflow-hidden rounded-lg bg-black/60 border border-rpg-gold/30 shadow-inner">
-    <h3 class="text-rpg-gold text-[10px] font-pixel uppercase tracking-widest absolute top-2 left-2 z-10 bg-black/50 px-2 py-0.5 rounded">Radar</h3>
-    
+  <div class="h-full relative overflow-hidden rounded-lg bg-black/60 border border-yellow-600/30 shadow-inner">
+    <h3 class="text-yellow-400 text-xs font-bold absolute top-2 left-2 z-10 bg-black/50 px-2 py-0.5 rounded">小地圖</h3>
+
     <!-- Grid Background -->
-    <div class="absolute inset-0 opacity-20" 
+    <div class="absolute inset-0 opacity-20"
          style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px); background-size: 20px 20px;">
     </div>
 
     <!-- Radar Scan Effect -->
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rpg-blue/5 to-transparent opacity-30 animate-scan pointer-events-none"></div>
-    
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-500/5 to-transparent opacity-30 animate-scan pointer-events-none"></div>
+
     <!-- Map Visualization -->
     <div class="w-full h-full flex items-center justify-center relative z-0">
-      <svg width="100%" height="100%" viewBox="0 0 200 200" class="drop-shadow-[0_0_5px_rgba(0,243,255,0.3)]">
-        <!-- Connections -->
-        <line x1="100" y1="100" x2="100" y2="50" stroke="#475569" stroke-width="1" stroke-dasharray="4 2" />
-        <line x1="100" y1="100" x2="150" y2="100" stroke="#475569" stroke-width="1" stroke-dasharray="4 2" />
-        <line x1="100" y1="100" x2="50" y2="100" stroke="#475569" stroke-width="1" stroke-dasharray="4 2" />
-        
-        <!-- Nodes -->
-        <circle cx="100" cy="50" r="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1" />
-        <circle cx="150" cy="100" r="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1" />
-        <circle cx="50" cy="100" r="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1" />
-        
+      <svg width="100%" height="100%" viewBox="0 0 200 200" class="drop-shadow-[0_0_5px_rgba(255,200,0,0.3)]">
+        <!-- Connections based on available exits -->
+        <line v-if="availableExits.n" x1="100" y1="100" x2="100" y2="50"
+              stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2" />
+        <line v-if="availableExits.e" x1="100" y1="100" x2="150" y2="100"
+              stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2" />
+        <line v-if="availableExits.w" x1="100" y1="100" x2="50" y2="100"
+              stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2" />
+        <line v-if="availableExits.s" x1="100" y1="100" x2="100" y2="150"
+              stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2" />
+
+        <!-- Possible Room Nodes -->
+        <g v-if="availableExits.n">
+          <circle cx="100" cy="50" r="6" fill="#1e293b" stroke="#fbbf24" stroke-width="2" />
+          <text x="100" y="54" text-anchor="middle" fill="#fbbf24" font-size="10">北</text>
+        </g>
+        <g v-if="availableExits.e">
+          <circle cx="150" cy="100" r="6" fill="#1e293b" stroke="#fbbf24" stroke-width="2" />
+          <text x="150" y="104" text-anchor="middle" fill="#fbbf24" font-size="10">東</text>
+        </g>
+        <g v-if="availableExits.w">
+          <circle cx="50" cy="100" r="6" fill="#1e293b" stroke="#fbbf24" stroke-width="2" />
+          <text x="50" y="104" text-anchor="middle" fill="#fbbf24" font-size="10">西</text>
+        </g>
+        <g v-if="availableExits.s">
+          <circle cx="100" cy="150" r="6" fill="#1e293b" stroke="#fbbf24" stroke-width="2" />
+          <text x="100" y="154" text-anchor="middle" fill="#fbbf24" font-size="10">南</text>
+        </g>
+
         <!-- Current Location (Center) -->
-        <circle cx="100" cy="100" r="6" fill="#00f3ff" class="animate-pulse shadow-[0_0_10px_#00f3ff]">
+        <circle cx="100" cy="100" r="8" fill="#fbbf24" class="animate-pulse">
           <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
         </circle>
-        
+        <text x="100" y="105" text-anchor="middle" fill="#000" font-size="12" font-weight="bold">你</text>
+
         <!-- Radar Rings -->
-        <circle cx="100" cy="100" r="40" fill="none" stroke="#00f3ff" stroke-width="0.5" opacity="0.2" />
-        <circle cx="100" cy="100" r="80" fill="none" stroke="#00f3ff" stroke-width="0.5" opacity="0.1" />
+        <circle cx="100" cy="100" r="40" fill="none" stroke="#fbbf24" stroke-width="0.5" opacity="0.2" />
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#fbbf24" stroke-width="0.5" opacity="0.1" />
       </svg>
     </div>
-    
-    <div class="absolute bottom-2 right-2 text-[10px] text-rpg-blue font-pixel bg-black/60 px-2 py-1 rounded border border-rpg-blue/20">
-      LOC: Whispering Forest
+
+    <div class="absolute bottom-2 right-2 text-xs text-yellow-400 bg-black/60 px-2 py-1 rounded border border-yellow-600/20">
+      位置: {{ currentRoom }}
     </div>
   </div>
 </template>

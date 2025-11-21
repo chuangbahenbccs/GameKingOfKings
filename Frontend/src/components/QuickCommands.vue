@@ -92,7 +92,9 @@ onMounted(() => {
     if (message.includes('這裡有：')) {
       const monstersMatch = message.match(/這裡有：(.+)/)
       if (monstersMatch && monstersMatch[1]) {
-        const monsters = monstersMatch[1]
+        // 清理HTML標籤
+        const cleanedMonsters = monstersMatch[1].replace(/<\/?[^>]*>/g, '')
+        const monsters = cleanedMonsters
           .split(/[、，,]/)
           .map(m => m.trim())
           .filter(m => m.length > 0)
@@ -111,7 +113,9 @@ onMounted(() => {
         if (line.includes('這裡有：')) {
           const match = line.match(/這裡有：(.+)/)
           if (match && match[1]) {
-            availableMonsters.value = match[1]
+            // 清理HTML標籤
+            const cleanedMonsters = match[1].replace(/<\/?[^>]*>/g, '')
+            availableMonsters.value = cleanedMonsters
               .split(/[、，,]/)
               .map(m => m.trim())
               .filter(m => m.length > 0)

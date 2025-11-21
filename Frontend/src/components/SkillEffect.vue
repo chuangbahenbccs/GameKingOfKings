@@ -9,15 +9,15 @@ interface Props {
 const props = defineProps<Props>()
 const showEffect = ref(false)
 
-// HD2D風格的粒子效果
-const particleCount = computed(() => {
-  switch(props.type) {
-    case 'damage': return 20
-    case 'heal': return 15
-    case 'buff': return 10
-    default: return 15
-  }
-})
+// HD2D風格的粒子效果 (保留以備未來使用)
+// const particleCount = computed(() => {
+//   switch(props.type) {
+//     case 'damage': return 20
+//     case 'heal': return 15
+//     case 'buff': return 10
+//     default: return 15
+//   }
+// })
 
 const effectColor = computed(() => {
   switch(props.skillName?.toLowerCase()) {

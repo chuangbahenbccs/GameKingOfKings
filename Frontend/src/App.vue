@@ -4,9 +4,8 @@ import { useAuthStore } from './stores/auth';
 import { usePlayerStore } from './stores/player';
 import Login from './components/Login.vue';
 import GameTerminal from './components/GameTerminal.vue';
-import StatusPanel from './components/StatusPanel.vue';
+import TabPanel from './components/TabPanel.vue';
 import CombatView from './components/CombatView.vue';
-import InventoryPanel from './components/InventoryPanel.vue';
 import MiniMap from './components/MiniMap.vue';
 import CharacterCreation from './components/CharacterCreation.vue';
 import GameGuide from './components/GameGuide.vue';
@@ -105,10 +104,10 @@ const handleCancelCreation = () => {
 
     <!-- Game Screen (3-Column Layout) -->
     <div v-else class="relative z-30 h-screen p-6 flex gap-6 overflow-hidden transition-transform duration-700 ease-out transform hover:scale-[1.01]">
-      <!-- Left Panel: Status (20%) -->
-      <div class="w-1/5 flex flex-col gap-6">
-        <StatusPanel class="flex-1 rpg-card p-4" />
-        <button 
+      <!-- Left Panel: Status & Inventory with Tabs (25%) -->
+      <div class="w-1/4 flex flex-col gap-6">
+        <TabPanel class="flex-1 rpg-card" />
+        <button
           @click="handleLogout"
           class="rpg-btn w-full bg-red-900 hover:bg-red-700 text-red-100 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
         >
@@ -139,21 +138,16 @@ const handleCancelCreation = () => {
         </div>
       </div>
 
-      <!-- Right Panel: Utility (30%) -->
-      <div class="w-[30%] flex flex-col gap-6">
+      <!-- Right Panel: Utility (25%) -->
+      <div class="w-1/4 flex flex-col gap-6">
         <!-- Top: Mini Map -->
-        <div class="h-1/4 rpg-card p-2">
+        <div class="h-1/3 rpg-card p-2">
           <MiniMap />
         </div>
 
-        <!-- Middle: Quick Commands -->
-        <div class="h-2/5">
+        <!-- Bottom: Quick Commands (expanded) -->
+        <div class="flex-1">
           <QuickCommands />
-        </div>
-
-        <!-- Bottom: Inventory -->
-        <div class="flex-1 rpg-card p-4">
-          <InventoryPanel />
         </div>
       </div>
     </div>
