@@ -124,6 +124,28 @@ namespace KingOfKings.Backend.Services
                 _player.CurrentHp = _player.MaxHp / 2;
                 _player.CurrentMp = _player.MaxMp / 2;
 
+                // 死亡後檢查是否有足夠經驗值升級
+                var expNeeded = GetExpForNextLevel(_player.Level);
+                bool leveledUp = false;
+                while (_player.Exp >= expNeeded)
+                {
+                    _player.Exp -= expNeeded;
+                    _player.Level++;
+                    LevelUp(_player);
+                    leveledUp = true;
+                    log.Add($"🎉 恭喜升級！現在是等級 {_player.Level}！");
+                    log.Add($"生命值和魔力值已完全恢復！");
+                    expNeeded = GetExpForNextLevel(_player.Level);
+                }
+
+                // 如果升級了，恢復滿血滿魔
+                if (leveledUp)
+                {
+                    _player.CurrentHp = _player.MaxHp;
+                    _player.CurrentMp = _player.MaxMp;
+                    log.Add("升級後生命值和魔力值已完全恢復！");
+                }
+
                 await SavePlayerData();
                 await SendUpdate(log, "defeat");
                 await SendPlayerDataUpdate();
