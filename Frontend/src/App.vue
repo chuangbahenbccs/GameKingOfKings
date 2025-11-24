@@ -91,13 +91,40 @@ const handleCancelCreation = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-rpg-dark text-gray-200 font-sans overflow-hidden relative perspective-1000">
-    <!-- Background Image (Pixel Art Landscape) -->
-    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-60 pointer-events-none tilt-shift scale-110"></div>
-    
-    <!-- Vignette & Scanlines -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 pointer-events-none"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
+  <div class="min-h-screen bg-rpg-dark text-gray-200 font-sans overflow-hidden relative perspective-1000 hd2d-container">
+    <!-- HD2D Multi-layer Background System -->
+    <div class="hd2d-background-system">
+      <!-- Far Background Layer -->
+      <div class="hd2d-layer hd2d-layer-far">
+        <div class="absolute inset-0 bg-gradient-to-b from-indigo-900/30 to-purple-900/30"></div>
+      </div>
+
+      <!-- Mid Background Layer -->
+      <div class="hd2d-layer hd2d-layer-mid">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+      </div>
+
+      <!-- Near Background Layer with HD2D Effects -->
+      <div class="hd2d-layer hd2d-layer-near">
+        <div class="hd2d-depth-blur"></div>
+        <div class="hd2d-ambient-particles"></div>
+      </div>
+    </div>
+
+    <!-- HD2D Lighting Effects -->
+    <div class="hd2d-lighting">
+      <!-- Volumetric Light Rays -->
+      <div class="hd2d-volumetric-light hd2d-light-1"></div>
+      <div class="hd2d-volumetric-light hd2d-light-2"></div>
+
+      <!-- Dynamic Shadows -->
+      <div class="hd2d-dynamic-shadows"></div>
+    </div>
+
+    <!-- Vignette & HD2D Post-processing -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 pointer-events-none"></div>
+    <div class="hd2d-post-process"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] z-20 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
 
     <!-- Login Screen -->
     <Login v-if="!authStore.isAuthenticated" class="relative z-30" />
@@ -170,6 +197,177 @@ const handleCancelCreation = () => {
 <style>
 .perspective-1000 {
   perspective: 1000px;
+}
+
+/* HD2D Container */
+.hd2d-container {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* HD2D Background System */
+.hd2d-background-system {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.hd2d-layer {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+}
+
+.hd2d-layer-far {
+  transform: translateZ(-200px) scale(1.2);
+  animation: hd2d-parallax-far 30s infinite ease-in-out;
+}
+
+.hd2d-layer-mid {
+  transform: translateZ(-100px) scale(1.1);
+  animation: hd2d-parallax-mid 25s infinite ease-in-out;
+}
+
+.hd2d-layer-near {
+  transform: translateZ(0);
+}
+
+/* Depth Blur Effect */
+.hd2d-depth-blur {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(0.5px);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 20, 0.1) 50%,
+    rgba(0, 0, 40, 0.2) 100%
+  );
+}
+
+/* Ambient Particles */
+.hd2d-ambient-particles {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 200, 0.2), transparent),
+    radial-gradient(1px 1px at 90% 10%, rgba(255, 200, 255, 0.2), transparent);
+  background-size: 300px 300px, 400px 400px, 250px 250px;
+  animation: hd2d-particles 20s linear infinite;
+}
+
+/* HD2D Lighting System */
+.hd2d-lighting {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Volumetric Light Rays */
+.hd2d-volumetric-light {
+  position: absolute;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 220, 150, 0.15),
+    transparent 40%
+  );
+  filter: blur(40px);
+  animation: hd2d-light-sway 10s infinite ease-in-out;
+}
+
+.hd2d-light-1 {
+  top: -20%;
+  left: 20%;
+  width: 300px;
+  height: 80%;
+  transform: rotate(15deg);
+  animation-delay: 0s;
+}
+
+.hd2d-light-2 {
+  top: -20%;
+  right: 30%;
+  width: 250px;
+  height: 70%;
+  transform: rotate(-10deg);
+  animation-delay: 5s;
+}
+
+/* Dynamic Shadows */
+.hd2d-dynamic-shadows {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    transparent 50%
+  );
+  animation: hd2d-shadow-pulse 8s infinite ease-in-out;
+}
+
+/* HD2D Post-processing */
+.hd2d-post-process {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  mix-blend-mode: multiply;
+}
+
+/* Animations */
+@keyframes hd2d-parallax-far {
+  0%, 100% { transform: translateZ(-200px) scale(1.2) translateX(0); }
+  50% { transform: translateZ(-200px) scale(1.2) translateX(-20px); }
+}
+
+@keyframes hd2d-parallax-mid {
+  0%, 100% { transform: translateZ(-100px) scale(1.1) translateY(0); }
+  50% { transform: translateZ(-100px) scale(1.1) translateY(-10px); }
+}
+
+@keyframes hd2d-particles {
+  from { transform: translateY(0); }
+  to { transform: translateY(-300px); }
+}
+
+@keyframes hd2d-light-sway {
+  0%, 100% { transform: rotate(15deg) translateX(0); }
+  50% { transform: rotate(18deg) translateX(30px); }
+}
+
+@keyframes hd2d-shadow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+/* HD2D UI Enhancements */
+.rpg-card {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(20, 20, 40, 0.6)
+  );
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rpg-card:hover {
+  transform: translateY(-2px) translateZ(10px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 </style>
 
