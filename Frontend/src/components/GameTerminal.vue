@@ -1,43 +1,105 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { gameHub } from '../services/gameHub'
+import { computed, nextTick, watch } from 'vue'
 
-const messages = ref<string[]>([])
+interface Message {
+  user: string;
+  content: string;
+  timestamp: Date;
+}
 
-onMounted(() => {
-  gameHub.onReceiveMessage((user, message) => {
-    const timestamp = new Date().toLocaleTimeString();
-    messages.value.push(`[${timestamp}] ${user}: ${message}`);
-    
-    // Auto-scroll to bottom
-    // 自動捲動到底部
+const props = defineProps<{
+  messages: Message[];
+}>();
+
+// Filter messages for terminal (exclude combat-only messages if needed)
+const terminalMessages = computed(() => {
+  return props.messages;
+});
+
+// Auto-scroll when new messages arrive
+watch(() => props.messages.length, () => {
+  nextTick(() => {
     const terminal = document.getElementById('terminal-output');
     if (terminal) {
       terminal.scrollTop = terminal.scrollHeight;
     }
   });
-})
+});
+
+const formatTime = (date: Date) => {
+  return date.toLocaleTimeString('en-US', { hour12: false });
+};
+
+const getUserColor = (user: string) => {
+  switch (user) {
+    case 'System': return 'text-yellow-400';
+    case 'Game': return 'text-green-400';
+    case 'Combat': return 'text-red-400';
+    case 'You': return 'text-cyan-400';
+    default: return 'text-gray-400';
+  }
+};
 </script>
 
 <template>
-  <div class="bg-gray-900 text-gray-300 font-mono p-4 rounded-lg h-96 overflow-y-auto" id="terminal-output">
-    <div v-for="(msg, index) in messages" :key="index" class="mb-1">
-      {{ msg }}
+  <div
+    id="terminal-output"
+    class="bg-gray-900/50 text-gray-300 font-mono p-4 rounded-lg h-full overflow-y-auto text-sm"
+  >
+    <div
+      v-for="(msg, index) in terminalMessages"
+      :key="index"
+      class="mb-2 animate-fade-in"
+    >
+      <span class="text-gray-500">[{{ formatTime(msg.timestamp) }}]</span>
+      <span :class="getUserColor(msg.user)" class="font-bold ml-1">{{ msg.user }}:</span>
+      <!-- Render HTML content from server -->
+      <span class="ml-2" v-html="msg.content"></span>
+    </div>
+
+    <div v-if="terminalMessages.length === 0" class="text-gray-500 italic">
+      Waiting for game data...
     </div>
   </div>
 </template>
 
 <style scoped>
 /* Custom scrollbar for terminal feel */
-/* 自定義捲軸以營造終端機感覺 */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #1a1b26; 
+  background: #1a1b26;
 }
 ::-webkit-scrollbar-thumb {
-  background: #414868; 
+  background: #414868;
   border-radius: 4px;
 }
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Style HTML content from server */
+:deep(.text-yellow-400) { color: rgb(250 204 21); }
+:deep(.text-yellow-300) { color: rgb(253 224 71); }
+:deep(.text-green-400) { color: rgb(74 222 128); }
+:deep(.text-green-300) { color: rgb(134 239 172); }
+:deep(.text-red-400) { color: rgb(248 113 113); }
+:deep(.text-red-300) { color: rgb(252 165 165); }
+:deep(.text-red-500) { color: rgb(239 68 68); }
+:deep(.text-blue-400) { color: rgb(96 165 250); }
+:deep(.text-blue-300) { color: rgb(147 197 253); }
+:deep(.text-cyan-400) { color: rgb(34 211 238); }
+:deep(.text-orange-400) { color: rgb(251 146 60); }
+:deep(.text-purple-400) { color: rgb(192 132 252); }
+:deep(.text-gray-400) { color: rgb(156 163 175); }
+:deep(.text-gray-300) { color: rgb(209 213 219); }
+:deep(.font-bold) { font-weight: 700; }
+:deep(.mt-2) { margin-top: 0.5rem; }
 </style>

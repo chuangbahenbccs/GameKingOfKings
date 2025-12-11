@@ -1,3 +1,5 @@
+using KingOfKings.Backend.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -10,28 +12,32 @@ namespace KingOfKings.Backend.Services
     public class GameLoopService : BackgroundService, IGameLoopService
     {
         private readonly ILogger<GameLoopService> _logger;
+        private readonly IServiceProvider _serviceProvider;
         private readonly TimeSpan _tickRate = TimeSpan.FromSeconds(1); // 1 tick per second
 
-        public GameLoopService(ILogger<GameLoopService> logger)
+        public GameLoopService(
+            ILogger<GameLoopService> logger,
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
+            _serviceProvider = serviceProvider;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("Game Loop Service is starting.");
-            // 遊戲迴圈服務正在啟動。
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
-                    // Perform game tick logic here (e.g., regen HP/MP, respawn monsters)
-                    // 在此執行遊戲 tick 邏輯 (例如：回復 HP/MP，重生怪物)
-                    
-                    // _logger.LogInformation("Game Tick...");
-
+                    await ProcessGameTick();
                     await Task.Delay(_tickRate, stoppingToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    // Expected when stopping
+                    break;
                 }
                 catch (Exception ex)
                 {
@@ -40,6 +46,46 @@ namespace KingOfKings.Backend.Services
             }
 
             _logger.LogInformation("Game Loop Service is stopping.");
+        }
+
+        private async Task ProcessGameTick()
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var combatManager = scope.ServiceProvider.GetRequiredService<ICombatManager>();
+            var gameEngine = scope.ServiceProvider.GetRequiredService<IGameEngine>();
+            var hubContext = scope.ServiceProvider.GetRequiredService<IHubContext<GameHub>>();
+
+            // Process combat ticks
+            var activeCombats = await combatManager.GetActiveCombatsAsync();
+            foreach (var combat in activeCombats)
+            {
+                try
+                {
+                    var result = await combatManager.ProcessCombatTickAsync(combat.Id);
+
+                    // Send combat update to player via SignalR
+                    await hubContext.Clients.All.SendAsync("ReceiveMessage", "Combat", result.Message);
+
+                    // Send HP/MP update
+                    if (result.PlayerCurrentHp.HasValue)
+                    {
+                        await hubContext.Clients.All.SendAsync("UpdateStats", new
+                        {
+                            currentHp = result.PlayerCurrentHp,
+                            maxHp = result.PlayerMaxHp,
+                            monsterHp = result.MonsterCurrentHp,
+                            monsterMaxHp = result.MonsterMaxHp
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error processing combat tick for combat {CombatId}", combat.Id);
+                }
+            }
+
+            // Process game tick (regen, etc.)
+            await gameEngine.TickAsync();
         }
     }
 }

@@ -1,9 +1,9 @@
 # Tasks: King of Kings (Text-based)
 
-- [/] Project Initialization & Planning <!-- id: 0 -->
+- [x] Project Initialization & Planning <!-- id: 0 -->
     - [x] Define Tech Stack (Vue + C#) <!-- id: 1 -->
-    - [ ] Create Database Schema Design <!-- id: 2 -->
-    - [ ] Define Game Architecture <!-- id: 3 -->
+    - [x] Create Database Schema Design <!-- id: 2 -->
+    - [x] Define Game Architecture <!-- id: 3 -->
 - [x] Phase 1: Foundation <!-- id: 4 -->
     - [x] Setup C# Web API Project (Backend) <!-- id: 5 -->
     - [x] Setup Vue 3 + Vite Project (Frontend) <!-- id: 20 -->
@@ -14,12 +14,12 @@
     - [x] Character Creation API (Warrior, Mage, Priest) <!-- id: 9 -->
     - [x] Game Engine Loop (Basic Command Processing) <!-- id: 7 -->
     - [x] Map System & Movement (Zone 1: Newbie Village) <!-- id: 10 -->
-- [ ] Phase 3: Gameplay Implementation <!-- id: 12 -->
-    - [ ] Combat Engine (Auto-attack + Skill Queue) <!-- id: 13 -->
-    - [ ] Implement Skills (Bash, Fireball, Heal) <!-- id: 14 -->
-    - [ ] Monster AI & Loot Tables <!-- id: 23 -->
-    - [ ] Inventory & Equipment System <!-- id: 15 -->
-    - [ ] Leveling & Stat Growth <!-- id: 24 -->
+- [x] Phase 3: Gameplay Implementation <!-- id: 12 -->
+    - [x] Combat Engine (Auto-attack + Skill Queue) <!-- id: 13 -->
+    - [x] Implement Skills (Bash, Fireball, Heal) <!-- id: 14 -->
+    - [x] Monster AI & Loot Tables <!-- id: 23 -->
+    - [x] Inventory & Equipment System <!-- id: 15 -->
+    - [x] Leveling & Stat Growth <!-- id: 24 -->
 - [ ] Phase 4: Content Expansion <!-- id: 16 -->
     - [ ] Zone 2: Whispering Forest <!-- id: 25 -->
     - [ ] Zone 3: Abandoned Mine <!-- id: 26 -->
